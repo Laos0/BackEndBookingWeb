@@ -32,6 +32,7 @@ public class UserController {
     @PostMapping(path = "/add")
     public ResponseEntity<User> addUser(@RequestBody User user){
         User newUser = userService.addUser(user);
+        user.setUserRole(UserRole.USER); // remove later. this is temp
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
