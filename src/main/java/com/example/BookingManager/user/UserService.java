@@ -1,4 +1,4 @@
-package com.example.BookingManager.User;
+package com.example.BookingManager.user;
 
 import com.example.BookingManager.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService{
 
 
     private final UserRepository userRepository;

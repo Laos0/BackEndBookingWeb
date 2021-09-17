@@ -1,4 +1,4 @@
-package com.example.BookingManager.User;
+package com.example.BookingManager.user;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,11 +20,12 @@ public class User implements Serializable {
     private Boolean isActive = false; // for account to be active, user needs to confirm token
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+    private Boolean enable;
 
 
     public User(){}
 
-    public User(Long id, String firstName, String lastName, String phone, String email, String password, String status, Boolean isActive, UserRole userRole) {
+    public User(Long id, String firstName, String lastName, String phone, String email, String password, String status, Boolean isActive, UserRole userRoles, Boolean enable) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,7 +34,8 @@ public class User implements Serializable {
         this.password = password;
         this.status = status;
         this.isActive = isActive;
-        this.userRole = userRole;
+        this.userRole = userRoles;
+        this.enable = enable;
     }
 
     public Long getId() {
@@ -108,17 +110,25 @@ public class User implements Serializable {
         this.userRole = userRole;
     }
 
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(phone, user.phone) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(status, user.status) && Objects.equals(isActive, user.isActive) && userRole == user.userRole;
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(phone, user.phone) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(status, user.status) && Objects.equals(isActive, user.isActive) && userRole == user.userRole && Objects.equals(enable, user.enable);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, phone, email, password, status, isActive, userRole);
+        return Objects.hash(id, firstName, lastName, phone, email, password, status, isActive, userRole, enable);
     }
 
     @Override
@@ -133,6 +143,7 @@ public class User implements Serializable {
                 ", status='" + status + '\'' +
                 ", isActive=" + isActive +
                 ", userRole=" + userRole +
+                ", enable=" + enable +
                 '}';
     }
 }

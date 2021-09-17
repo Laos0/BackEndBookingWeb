@@ -1,4 +1,4 @@
-package com.example.BookingManager.User;
+package com.example.BookingManager.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,4 +10,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void deleteUserById(Long id);
 
     Optional<User> findUserById(Long id);
+    Optional<User> findByEmail(String email);
 }
