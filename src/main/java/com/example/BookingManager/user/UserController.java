@@ -30,11 +30,15 @@ public class UserController {
 
     @PostMapping(path = "/users/add")
     public ResponseEntity<User> addUser(@RequestBody User user){
-        User newUser = userService.addUser(user);
 
         // set defaults to user's status, isActive, userRole and enable
         UserAutoConfig defaultUserSetting = new UserAutoConfig(user);
-        newUser = defaultUserSetting.getUser();
+
+
+        User newUser = userService.addUser(defaultUserSetting.getUser());
+
+        // ORIGINAL, if broken delete all on top
+        //User newUser = userService.addUser(user);
 
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
