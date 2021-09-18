@@ -15,7 +15,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "/admin/users/all")
+    @GetMapping(path = "/users/all")
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users = userService.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -28,9 +28,14 @@ public class UserController {
     }
 
 
-    @PostMapping(path = "/add")
+    @PostMapping(path = "/users/add")
     public ResponseEntity<User> addUser(@RequestBody User user){
         User newUser = userService.addUser(user);
+
+        // set defaults to user's status, isActive, userRole and enable
+        UserAutoConfig defaultUserSetting = new UserAutoConfig(user);
+        newUser = defaultUserSetting.getUser();
+
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 

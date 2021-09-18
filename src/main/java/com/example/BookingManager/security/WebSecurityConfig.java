@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() // this is temp so we can post request
                 .authorizeRequests()
                 .antMatchers("/admin").hasAuthority("ADMIN")
-                .antMatchers("/api/v1/admin/users/all").hasAuthority("ADMIN")
+                //.antMatchers("/api/v1/admin/users/all").hasAuthority("ADMIN")
                 .antMatchers("/user").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/").permitAll()
                 .and().formLogin();
