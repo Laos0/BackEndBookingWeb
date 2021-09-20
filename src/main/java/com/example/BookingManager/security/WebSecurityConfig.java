@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         /*
             NOTE: Spring Security hasRole() not working
 
-            If you use hasRole('ADMIN'), in your ADMIN Enum must be ROLE_ADMIN instead of ADMIN.
+            If you use hasRole('ADMIN'), in your ADMIN Enum must be "ROLE_ADMIN" instead of "ADMIN".
             If you use hasAuthority('ADMIN'), your ADMIN Enum must be ADMIN.
             In spring security, hasRole() is the same as hasAuthority(), but hasRole()
             function map with Authority without ROLE_ prefix.
