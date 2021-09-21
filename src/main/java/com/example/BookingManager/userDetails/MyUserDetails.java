@@ -1,5 +1,6 @@
 package com.example.BookingManager.userDetails;
 
+import com.example.BookingManager.consoleTextMod.ColorText;
 import com.example.BookingManager.user.User;
 import com.example.BookingManager.user.UserRole;
 import org.springframework.security.core.GrantedAuthority;
@@ -47,7 +48,8 @@ public class MyUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
 
-        System.out.println("THIS IS THE USER ROLE:" + userRole.name());
+        System.out.println(ColorText.ANSI_YELLOW + "From: MyUserDetails.java, Method: GrantedAuthority, Variable: userRole"
+                + userRole.name() + ColorText.ANSI_RESET);
 
         return Collections.singletonList(authority);
     }

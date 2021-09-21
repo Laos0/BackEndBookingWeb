@@ -1,6 +1,10 @@
 package com.example.BookingManager;
 
+import com.example.BookingManager.user.User;
 import com.example.BookingManager.user.UserRepository;
+import com.example.BookingManager.user.UserService;
+import com.example.BookingManager.userDetails.MyUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +14,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
+
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)

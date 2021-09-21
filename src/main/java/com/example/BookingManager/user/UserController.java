@@ -1,3 +1,7 @@
+/*
+    This controller takes care of endpoints/api
+ */
+
 package com.example.BookingManager.user;
 
 import org.springframework.http.HttpStatus;
@@ -33,7 +37,6 @@ public class UserController {
 
         // set defaults to user's status, isActive, userRole and enable
         UserAutoConfig defaultUserSetting = new UserAutoConfig(user);
-
 
         User newUser = userService.addUser(defaultUserSetting.getUser());
 

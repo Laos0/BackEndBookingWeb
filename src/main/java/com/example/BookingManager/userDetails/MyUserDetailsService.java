@@ -1,5 +1,6 @@
 package com.example.BookingManager.userDetails;
 
+import com.example.BookingManager.consoleTextMod.ColorText;
 import com.example.BookingManager.user.User;
 import com.example.BookingManager.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,10 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
+
         Optional<User> user = userRepository.findByEmail(email);
 
-        user.orElseThrow(() -> new UsernameNotFoundException("Email not found: " + email));
+        user.orElseThrow(() -> new UsernameNotFoundException(ColorText.ANSI_RED + "Email notssss found: " + email + ColorText.ANSI_RESET));
         return user.map(MyUserDetails::new).get();
     }
 }

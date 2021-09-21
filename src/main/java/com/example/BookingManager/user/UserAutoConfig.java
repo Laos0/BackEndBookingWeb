@@ -2,6 +2,7 @@
     This class will set properties of newly created users
     to a default setting
     such as: status, isActive, userRole and enable
+    This class is currently used in the UserController
  */
 
 package com.example.BookingManager.user;
