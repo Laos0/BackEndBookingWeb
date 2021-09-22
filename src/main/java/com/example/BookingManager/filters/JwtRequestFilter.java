@@ -20,6 +20,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
 
 @Component
@@ -37,9 +38,18 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException{
 
-
-
         final String authorizationHeader = request.getHeader("Authorization");
+
+        // ------ This is needed to login on the front end ----------------
+        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+
+        //filterChain.doFilter(request, response);
+
+        // ---------------- End of comment -------------
 
         String email = null;
         String jwt = null;
@@ -49,7 +59,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         // verfiy if header is null
         // "Bearer " means whatever is coming after that is the jwt
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
-            System.out.println("NO HEADER");
+            System.out.println(ColorText.ANSI_RED + "From: JwtRequestFilter.java, Method: doFilterInternal, Mgs: NO HEADER" + ColorText.ANSI_RESET);
             //"Bearer " is equal to 7
             // so substring will remove the first 7 characters and return the rest
             jwt = authorizationHeader.substring(7);
@@ -57,7 +67,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(email); // replace with email
 
             // validate the token once userDetails is obtained
             if(jwtUtil.validateToken(jwt, userDetails)){

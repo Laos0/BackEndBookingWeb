@@ -41,4 +41,5 @@ public class BookingManagerApplication {
 		return new CorsFilter(urlBasedCorsConfigurationSource);
 	}
 
+
 }

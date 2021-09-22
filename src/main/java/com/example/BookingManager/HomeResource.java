@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping(path = "/")
 public class HomeResource {
@@ -52,7 +53,7 @@ public class HomeResource {
     // checks for username and password
     // authenticationRequest is the username and password that is being sent
     @PostMapping(path = "/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception{
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
         System.out.println(ColorText.ANSI_YELLOW
                 + "From: HomeResource.java, Method: ReponseEntity, Messsage: this method is hit"
@@ -66,13 +67,14 @@ public class HomeResource {
                             authenticationRequest.getPassword())
             );
         }catch(BadCredentialsException e){
-            throw new Exception("Incorrect username or password", e);
+            throw new Exception("From AuthService, Method: generateJwt, Mgs: Incorrect username or password", e);
         }
 
-        // if authentication is successful, we need to return a jdbp
+        // if authentication is successful, we need to return a jwt
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
+
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }

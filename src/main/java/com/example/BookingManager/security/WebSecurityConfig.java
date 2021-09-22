@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate").permitAll()
+                .authorizeRequests().antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -64,24 +64,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         // UNCOMMENT THIS IS IT FAILS
-        /*
-            NOTE: Spring Security hasRole() not working
+        //NOTE: Spring Security hasRole() not working
 
-            If you use hasRole('ADMIN'), in your ADMIN Enum must be "ROLE_ADMIN" instead of "ADMIN".
-            If you use hasAuthority('ADMIN'), your ADMIN Enum must be ADMIN.
-            In spring security, hasRole() is the same as hasAuthority(), but hasRole()
-            function map with Authority without ROLE_ prefix.
+//            If you use hasRole('ADMIN'), in your ADMIN Enum must be "ROLE_ADMIN" instead of "ADMIN".
+//            If you use hasAuthority('ADMIN'), your ADMIN Enum must be ADMIN.
+//            In spring security, hasRole() is the same as hasAuthority(), but hasRole()
+//            function map with Authority without ROLE_ prefix.
 
-        http
-                .csrf().disable() // this is temp so we can post request
-                .authorizeRequests()
-                .antMatchers("/admin").hasAuthority("ADMIN")
-                //.antMatchers("/api/v1/admin/users/all").hasAuthority("ADMIN")
-                .antMatchers("/user").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers("/").permitAll()
-                .and().formLogin();
+//        http
+//                .csrf().disable() // this is temp so we can post request
+//                .authorizeRequests()
+//                .antMatchers("/admin").hasAuthority("ADMIN")
+//                //.antMatchers("/api/v1/admin/users/all").hasAuthority("ADMIN")
+//                .antMatchers("/user").hasAnyAuthority("USER", "ADMIN")
+//                .antMatchers("/").permitAll()
+//                .and().formLogin();
 
-         */
+
     }
 
     // Consider defining a bean of type

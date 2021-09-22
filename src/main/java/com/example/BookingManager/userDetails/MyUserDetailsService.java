@@ -17,11 +17,10 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-
+        System.out.println("THE current email " + email);
         Optional<User> user = userRepository.findByEmail(email);
 
         user.orElseThrow(() -> new UsernameNotFoundException(ColorText.ANSI_RED + "Email notssss found: " + email + ColorText.ANSI_RESET));

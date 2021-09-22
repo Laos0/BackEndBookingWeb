@@ -1,5 +1,6 @@
 package com.example.BookingManager.util;
 
+import com.example.BookingManager.consoleTextMod.ColorText;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,10 +17,13 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private String SECRET_KEY = "secret";
+    private String username;
 
     // takes the token and return the username
     public String extractUsername(String token){
-        return extractClaim(token, Claims::getSubject);
+
+        String g = extractClaim(token, Claims::getSubject);
+        return g;
     }
 
     // takes in token and returns the expiration date
@@ -30,11 +34,17 @@ public class JwtUtil {
     // use claimsResolve to figure out what the claims are
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
         final Claims claims = extractAllClaims(token);
+        username = claims.getIssuer();
+        username = claims.getSubject();
+        username = claims.getAudience();
+        //System.out.println(ColorText.ANSI_RED + claimsResolver.apply(claims) + ColorText.ANSI_RESET);
         return claimsResolver.apply(claims);
+        //return null;
     }
 
     public Claims extractAllClaims(String token){
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        Claims claim = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return claim;
     }
 
     // checking if the token is expired before the current date
@@ -44,7 +54,7 @@ public class JwtUtil {
 
     public String generateToken(UserDetails userDetails){
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getPassword());
+        return createToken(claims, userDetails.getUsername());
     }
 
     // setting the claims, and set subject who is being authenticated(username)
