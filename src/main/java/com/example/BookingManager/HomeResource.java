@@ -1,3 +1,8 @@
+/*
+    This is only a testing api controller to test various
+    scenarios such as security, logins, guest browsing, etc
+ */
+
 package com.example.BookingManager;
 
 import com.example.BookingManager.authentication.AuthenticationRequest;
@@ -27,25 +32,44 @@ public class HomeResource {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
+    // anyone should be able to use this api
     @GetMapping(path = "/hello")
     public String testApi(){
         return "<h1>HELLO!</h2>";
     }
 
+    // anyone should be able to use this api
     @GetMapping
     public String home(){
         return "<h1>Welcome Guest!</h2>";
     }
 
+    // only admin
     @GetMapping(path = "/admin")
     public String admin(){
         return "<h1>Welcome Admin!</h2>";
     }
 
+    // only user
     @GetMapping(path ="/user")
     public String user(){
         return "<h1>Welcome User!</h2>";
     }
+
+    // test auth from angular
+    @PostMapping(path ="/auth")
+    public Boolean validateToken(@RequestBody String token){
+
+        System.out.println("TOKEN VALIDATION");
+        System.out.println(token);
+
+        if(token != null && token.length() != 0){
+            return jwtTokenUtil.validateIncomingToken(token);
+        }
+
+        return false;
+    }
+
 
 
     // The only endpoint that checks authentication

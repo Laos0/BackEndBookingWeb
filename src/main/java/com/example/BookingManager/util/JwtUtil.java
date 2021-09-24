@@ -34,9 +34,6 @@ public class JwtUtil {
     // use claimsResolve to figure out what the claims are
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
         final Claims claims = extractAllClaims(token);
-        username = claims.getIssuer();
-        username = claims.getSubject();
-        username = claims.getAudience();
         //System.out.println(ColorText.ANSI_RED + claimsResolver.apply(claims) + ColorText.ANSI_RESET);
         return claimsResolver.apply(claims);
         //return null;
@@ -70,5 +67,13 @@ public class JwtUtil {
     public Boolean validateToken(String token, UserDetails userDetails){
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    public Boolean validateIncomingToken(String token){
+        System.out.println(token + " " + isTokenExpired(token));
+        if(!isTokenExpired(token)){
+            return true;
+        }
+        return false;
     }
 }
