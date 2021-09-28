@@ -20,7 +20,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        System.out.println("THE current email " + email);
+        System.out.println(ColorText.ANSI_YELLOW + "From: MyUserDetailsService, Method loadUserByUsername, variable: email = " + email + ColorText.ANSI_RESET);
         Optional<User> user = userRepository.findByEmail(email);
 
         user.orElseThrow(() -> new UsernameNotFoundException(ColorText.ANSI_RED + "Email notssss found: " + email + ColorText.ANSI_RESET));

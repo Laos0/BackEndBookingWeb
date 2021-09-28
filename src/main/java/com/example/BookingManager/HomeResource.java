@@ -57,6 +57,7 @@ public class HomeResource {
     }
 
     // test auth from angular
+    // validate the token
     @PostMapping(path ="/auth")
     public Boolean validateToken(@RequestBody String token){
 

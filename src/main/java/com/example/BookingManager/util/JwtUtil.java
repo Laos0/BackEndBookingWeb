@@ -46,7 +46,7 @@ public class JwtUtil {
 
     // checking if the token is expired before the current date
     private Boolean isTokenExpired(String token){
-        return extractExpiration(token).before(new Date());
+        return extractExpiration(token).before(new Date()); // .before(new Date()) basically means the time right now?
     }
 
     public String generateToken(UserDetails userDetails){
@@ -59,7 +59,7 @@ public class JwtUtil {
     // sign in with the token using the algo.
     public String createToken(Map<String, Object> claims, String subject){
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .setExpiration(new Date(System.currentTimeMillis() + 100000)) // 1000 * 60 * 60 * 10 = 10 hours
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
@@ -69,6 +69,7 @@ public class JwtUtil {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+    // this one will validate the token without the userDetails
     public Boolean validateIncomingToken(String token){
         System.out.println(token + " " + isTokenExpired(token));
         if(!isTokenExpired(token)){

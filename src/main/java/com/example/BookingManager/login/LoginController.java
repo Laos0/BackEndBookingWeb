@@ -66,7 +66,7 @@ public class LoginController {
     public AuthenticationResponse testLogin(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
         System.out.println(ColorText.ANSI_YELLOW
-                + "TEST LOGIN"
+                + "TEST LOGIN, response to angular's post"
                 + ColorText.ANSI_RESET);
 
         // if authentication fails, we will catch the exception
