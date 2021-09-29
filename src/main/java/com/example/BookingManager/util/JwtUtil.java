@@ -59,11 +59,11 @@ public class JwtUtil {
     // sign in with the token using the algo.
     public String createToken(Map<String, Object> claims, String subject){
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 100000)) // 1000 * 60 * 60 * 10 = 10 hours
+                .setExpiration(new Date(System.currentTimeMillis() + 300000)) // 1000 * 60 * 60 * 10 = 10 hours
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
-    // checks if userame is the same as the username of the userDetails
+    // checks if userame is the same as the username of the userDetails+
     public Boolean validateToken(String token, UserDetails userDetails){
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));

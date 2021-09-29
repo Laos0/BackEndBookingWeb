@@ -61,8 +61,9 @@ public class HomeResource {
     @PostMapping(path ="/auth")
     public Boolean validateToken(@RequestBody String token){
 
-        System.out.println("TOKEN VALIDATION");
-        System.out.println(token);
+        // Testings
+        //System.out.println("TOKEN VALIDATION");
+        //System.out.println(token);
 
         if(token != null && token.length() != 0){
             return jwtTokenUtil.validateIncomingToken(token);

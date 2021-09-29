@@ -37,6 +37,8 @@ public class LoginController {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
+    // change path to login to test this
+    // for now ill change it to /testLogin
     @PostMapping(path = "/login")
     public String login(@RequestBody User user)
     {
